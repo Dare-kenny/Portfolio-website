@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Akinrogunde Damilare</title>
+<meta name="description" content="Backend developer in Lagos, Nigeria. Java, Spring Boot, NestJS, PostgreSQL, Docker.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+  /* Layout: plain white website. Top bar, big intro, project cards, short timeline, chips, contact block. */
+  :root {
+    --bg: #ffffff;
+    --fg: #111113;
+    --muted: #5e5e66;
+    --line: #e4e4e7;
+    --soft: #f4f4f5;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 1rem;
+    line-height: 1.6;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+  .wrap { max-width: 60rem; margin-inline: auto; }
+  a { color: var(--fg); text-underline-offset: 0.2em; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; border-radius: 4px; }
+  h1, h2, h3 { margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+  p, ul { margin: 0; }
+  ul { list-style: none; padding: 0; }
+
+  /* Top bar */
+  .topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem 1.5rem; padding-block: 1.25rem; }
+  .brand { font-weight: 800; text-decoration: none; font-size: 1.0625rem; letter-spacing: -0.01em; }
+  .topbar nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; font-size: 0.9375rem; font-weight: 500; }
+  .topbar nav a { color: var(--muted); text-decoration: none; }
+  .topbar nav a:hover { color: var(--fg); }
+
+  /* Intro */
+  .intro { padding-block: 4.5rem 4rem; display: grid; gap: 1.5rem; max-width: 46rem; }
+  .pill { justify-self: start; font-size: 0.8125rem; font-weight: 600; padding: 0.3rem 0.8rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+  .intro h1 { font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 800; line-height: 1.05; }
+  .intro h1 span { color: var(--muted); }
+  .intro p { font-size: 1.1875rem; color: var(--muted); max-width: 38rem; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; padding-top: 0.5rem; }
+  .btn { display: inline-block; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.9375rem; text-decoration: none; border: 1px solid var(--fg); }
+  .btn-dark { background: var(--fg); color: var(--bg); }
+  .btn-dark:hover { background: #2c2c31; }
+  .btn-light { background: var(--bg); color: var(--fg); }
+  .btn-light:hover { background: var(--soft); }
+
+  /* Sections */
+  section { padding-block: 3.5rem; border-top: 1px solid var(--line); scroll-margin-top: 1rem; display: grid; gap: 2rem; }
+  .section-head { display: grid; gap: 0.4rem; }
+  .section-head h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 800; line-height: 1.15; }
+  .section-head p { color: var(--muted); max-width: 36rem; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem 3rem; align-items: start; }
+  .about p { font-size: 1.0625rem; }
+  .facts { display: grid; gap: 0.9rem; }
+  .facts li { display: grid; gap: 0.1rem; padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); }
+  .facts li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .facts span { font-size: 0.8125rem; color: var(--muted); font-weight: 500; }
+  .facts strong { font-weight: 600; }
+
+  /* Projects */
+  .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .card { border: 1px solid var(--line); border-radius: 14px; padding: 1.75rem; display: grid; gap: 0.9rem; align-content: start; min-width: 0; }
+  .card.featured { grid-column: 1 / -1; background: var(--soft); border-color: var(--soft); }
+  .card .kind { font-size: 0.8125rem; font-weight: 600; color: var(--muted); }
+  .card h3 { font-size: 1.3125rem; font-weight: 700; line-height: 1.25; }
+  .card.featured h3 { font-size: clamp(1.4rem, 3.5vw, 1.75rem); }
+  .card p { color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chips li { font-size: 0.8125rem; font-weight: 500; padding: 0.25rem 0.65rem; border-radius: 999px; background: var(--soft); }
+  .card.featured .chips li { background: var(--bg); }
+  .card-link { font-weight: 600; font-size: 0.9375rem; justify-self: start; }
+
+  /* Experience */
+  .timeline { display: grid; }
+  .job { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.25rem 2rem; padding-block: 1.5rem; border-bottom: 1px solid var(--line); }
+  .job:first-child { padding-top: 0; }
+  .job:last-child { border-bottom: 0; padding-bottom: 0; }
+  .when { color: var(--muted); font-size: 0.9375rem; font-variant-numeric: tabular-nums; padding-top: 0.15rem; }
+  .job h3 { font-size: 1.125rem; font-weight: 700; }
+  .job .org { font-weight: 500; color: var(--muted); }
+  .job p { margin-top: 0.4rem; }
+
+  /* Skills */
+  .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.75rem 2rem; }
+  .skill-groups h3 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.6rem; }
+
+  /* Contact */
+  .contact-box { background: var(--fg); color: var(--bg); border-radius: 18px; padding: clamp(1.75rem, 5vw, 3rem); display: grid; gap: 1.25rem; }
+  .contact-box h2 { font-size: clamp(1.75rem, 5vw, 2.5rem); font-weight: 800; line-height: 1.1; }
+  .contact-box p { color: #c9c9cf; max-width: 34rem; }
+  .email-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+  .email { color: var(--bg); font-size: clamp(1.1rem, 3.5vw, 1.375rem); font-weight: 700; overflow-wrap: anywhere; user-select: all; }
+  .copy { font: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer; color: var(--fg); background: var(--bg); border: 0; border-radius: 8px; padding: 0.5rem 0.9rem; }
+  .copy:hover { background: #e4e4e7; }
+  .status { font-size: 0.875rem; color: #c9c9cf; min-height: 1.4em; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-weight: 600; }
+  .contact-links a { color: var(--bg); }
+
+  footer { color: var(--muted); font-size: 0.875rem; padding-block: 2rem 2.5rem; }
+
+  @media (max-width: 44rem) {
+    .about, .projects { grid-template-columns: 1fr; }
+    .job { grid-template-columns: 1fr; }
+    .intro { padding-block: 3rem 3rem; }
+    section { padding-block: 2.75rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <a class="brand" href="#top" id="top">Akinrogunde Damilare</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="intro">
+      <h1>I'm Damilare. <span>I build the backend for systems and applications</span></h1>
+      <p>Backend developer in Lagos, Nigeria, a backend developer intern at Swifta and currently working on CapPay, a fintech app.</p>
+      <div class="buttons">
+        <a class="btn btn-dark" href="https://github.com/Dare-kenny" target="_blank" rel="noopener">View my GitHub</a>
+        <a class="btn btn-light" href="Akinrogunde_Damilare_CV.pdf" target="_blank" rel="noopener">View my CV</a>
+      </div>
+    </div>
+
+    <section id="about" aria-labelledby="about-h">
+      <div class="section-head"><h2 id="about-h">About me</h2></div>
+      <div class="about">
+        <p>I design and build backend systems, from REST services and external API integrations to layered architectures with clear service boundaries. Right now I'm leading the backend development for a fintech product, and I have a growing interest in network security and architecture.</p>
+        <ul class="facts">
+          <li><span>Based in</span><strong>Lagos, Nigeria</strong></li>
+          <li><span>Currently</span><strong>Backend developer intern at Swifta</strong></li>
+          <li><span>Studying</span><strong>B.Sc Computer Science, Covenant University (graduating 2026)</strong></li>
+          <li><span>Main stack</span><strong>Spring Boot, NestJS, PostgreSQL, Docker</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-h">
+      <div class="section-head"><h2 id="experience-h">Experience</h2></div>
+      <div class="timeline">
+        <div class="job">
+          <span class="when">2026 - Present</span>
+          <div>
+            <h3>CTO &amp; Backend Developer <span class="org">at CapPay</span></h3>
+            <p>Leading a cross-functional team building CapPay, a fintech app that aids users with budgeting and budget management. I designed the NestJS, PostgreSQL and Redis backend, including a double-entry ledger and Paystack payments.</p>
+          </div>
+        </div>
+        <div class="job">
+          <span class="when">2025 - Present</span>
+          <div>
+            <h3>Backend Developer Intern <span class="org">at Swifta Systems and Services</span></h3>
+            <p>Working on EmpayIt, a mobile ticketing system built with Java and Spring Boot, across API integrations, DTO and service-layer design, and debugging with senior engineers.</p>
+          </div>
+        </div>
+        <div class="job">
+          <span class="when">2023</span>
+          <div>
+            <h3>IT Support Intern <span class="org">at Logic Point Network Solutions</span></h3>
+            <p>Learnt network architecture and built model networks in Cisco Packet Tracer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-h">
+      <div class="section-head"><h2 id="skills-h">Skills</h2></div>
+      <div class="skill-groups">
+        <div><h3>Languages</h3><ul class="chips"><li>Java</li><li>Python</li><li>SQL</li><li>JavaScript</li><li>Dart</li></ul></div>
+        <div><h3>Backend</h3><ul class="chips"><li>Spring Boot</li><li>NestJS</li><li>REST APIs</li><li>DTO architecture</li><li>Service layer design</li></ul></div>
+        <div><h3>Databases</h3><ul class="chips"><li>MySQL</li><li>PostgreSQL</li></ul></div>
+        <div><h3>Tools &amp; DevOps</h3><ul class="chips"><li>Docker</li><li>Git</li><li>Maven</li><li>Liquibase</li></ul></div>
+        <div><h3>Frontend &amp; Mobile</h3><ul class="chips"><li>Flutter</li><li>HTML</li><li>CSS</li></ul></div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="contact-box">
+        <h2 id="contact-h">Get in touch</h2>
+        <a class="email" href="mailto:2005Darekenny@gmail.com">2005Darekenny@gmail.com</a>
+        <div class="contact-links">
+          <a href="https://github.com/Dare-kenny" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/akinrogunde-damilare/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 Akinrogunde Damilare</footer>
+</div>
+
+</body>
+</html>
